@@ -13,23 +13,23 @@ statement
    ;
 
 paren_expr
-   : '(' expr ')'
+   : __(__ expr __)__
    ;
 
 expr
    : test
-   | id '=' expr
+   | id __=__ expr
    ;
 
 test
    : sum
-   | sum '<' sum
+   | sum __<__ sum
    ;
 
 sum
    : term
-   | sum '+' term
-   | sum '-' term
+   | sum __+__ term
+   | sum __-__ term
    ;
 
 term
