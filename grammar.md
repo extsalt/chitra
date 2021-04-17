@@ -3,33 +3,33 @@ program
    ;
 
 statement
-   : __if__ paren_expr statement
-   | __if__ paren_expr statement __else__ statement
-   | __while__ paren_expr statement
-   | __do__ statement __while__ paren_expr __;__
-   | __{__ statement* __}__
-   | expr __;__
-   | __;__
+   : _if_ paren_expr statement
+   | _if_ paren_expr statement _else_ statement
+   | _while_ paren_expr statement
+   | _do_ statement _while_ paren_expr _;_
+   | _{_ statement* _}_
+   | expr _;_
+   | _;_
    ;
 
 paren_expr
-   : __(__ expr __)__
+   : _(_ expr _)_
    ;
 
 expr
    : test
-   | id __=__ expr
+   | id _=_ expr
    ;
 
 test
    : sum
-   | sum __<__ sum
+   | sum _<_ sum
    ;
 
 sum
    : term
-   | sum __+__ term
-   | sum __-__ term
+   | sum _+_ term
+   | sum _-_ term
    ;
 
 term
