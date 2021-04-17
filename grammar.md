@@ -1,5 +1,4 @@
-program
-   : statement+
+program ::= statement+
    
 
 statement
