@@ -3,7 +3,7 @@ program
    ;
 
 statement
-   : 'if' paren_expr statement
+   : __if__ paren_expr statement
    | 'if' paren_expr statement 'else' statement
    | 'while' paren_expr statement
    | 'do' statement 'while' paren_expr ';'
