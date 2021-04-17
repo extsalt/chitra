@@ -11,44 +11,32 @@ statement
    | _;_
    
 
-paren_expr
-   : _(_ expr _)_
+paren_expr ::= _(_ expr _)_
    
 
-expr
-   : test
+expr ::= test
    | id _=_ expr
    
 
-test
-   : sum
+test ::= sum
    | sum _<_ sum
    
 
-sum
-   : term
+sum ::= term
    | sum _+_ term
    | sum _-_ term
    
 
-term
-   : id
+term ::= id
    | integer
    | paren_expr
    
+  
+id ::= string
    
-id
-   : STRING
+integer ::= int
    
-
-integer
-   : INT
+string ::= [a-z]+
    
-
-
-STRING
-   : [a-z]+
-   
-INT
-   : [0-9]+
+int ::= [0-9]+
    
