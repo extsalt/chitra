@@ -4,11 +4,11 @@ program
 
 statement
    : __if__ paren_expr statement
-   | 'if' paren_expr statement 'else' statement
-   | 'while' paren_expr statement
-   | 'do' statement 'while' paren_expr ';'
-   | '{' statement* '}'
-   | expr ';'
+   | __if__ paren_expr statement __else__ statement
+   | __while__ paren_expr statement
+   | __do__ statement __while__ paren_expr __;__
+   | __{__ statement* __}__
+   | expr __;__
    | ';'
    ;
 
