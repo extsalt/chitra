@@ -4,12 +4,13 @@ program
 
 statement
    : __if__ paren_expr statement
+   
    | __if__ paren_expr statement __else__ statement
    | __while__ paren_expr statement
    | __do__ statement __while__ paren_expr __;__
    | __{__ statement* __}__
    | expr __;__
-   | ';'
+   | __;__
    ;
 
 paren_expr
