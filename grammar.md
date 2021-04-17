@@ -1,42 +1,56 @@
-program ::= statement+
-   
+program
+   : statement+
+   ;
 
 statement
-   : _if_ paren_expr statement
-   | _if_ paren_expr statement _else_ statement
-   | _while_ paren_expr statement
-   | _do_ statement _while_ paren_expr _;_
-   | _{_ statement* _}_
-   | expr _;_
-   | _;_
-   
+   : 'if' paren_expr statement
+   | 'if' paren_expr statement 'else' statement
+   | 'while' paren_expr statement
+   | 'do' statement 'while' paren_expr ';'
+   | '{' statement* '}'
+   | expr ';'
+   | ';'
+   ;
 
-paren_expr ::= _(_ expr _)_
-   
+paren_expr
+   : '(' expr ')'
+   ;
 
-expr ::= test
-   | id _=_ expr
-   
+expr
+   : test
+   | id '=' expr
+   ;
 
-test ::= sum
-   | sum _<_ sum
-   
+test
+   : sum
+   | sum '<' sum
+   ;
 
-sum ::= term
-   | sum _+_ term
-   | sum _-_ term
-   
+sum
+   : term
+   | sum '+' term
+   | sum '-' term
+   ;
 
-term ::= id
+term
+   : id
    | integer
    | paren_expr
-   
-  
-id ::= string
-   
-integer ::= int
-   
-string ::= [a-z]+
-   
-int ::= [0-9]+
-   
+   ;
+
+id
+   : STRING
+   ;
+
+integer
+   : INT
+   ;
+
+
+STRING
+   : [a-z]+
+   ;
+
+INT
+   : [0-9]+
+   ;
