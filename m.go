@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+	"regexp"
+	"unicode"
 )
 
 const (
@@ -21,7 +23,24 @@ const (
 	TokenLessOrEqual      = "Less_Or_Equal"
 	TokenBang             = "Bang"
 	TokenBangEqual        = "Bang_Equal"
+	TokenInteger          = "Integer"
+	TokenFloat            = "Float"
+	TokenString           = "String"
+	TokenChar             = "Char"
 )
+
+func hasKey(k string) bool {
+	reservedKeywords := map[string]string{
+		"int":    TokenInteger,
+		"float":  TokenFloat,
+		"string": TokenString,
+		"char":   TokenChar,
+	}
+
+	_, ok := reservedKeywords[k]
+
+	return ok
+}
 
 type token struct {
 	literal   string
@@ -191,7 +210,19 @@ func lexer(src string) *[]token {
 			break
 
 		default:
+			if unicode.IsDigit(rune(src[i])) {
+				// tokenize digit here
+			}
 
+			result, err := regexp.Match("[a-zA-Z_]", []byte(string(src[i])))
+
+			if err != nil {
+				panic("something happened while executing regex")
+			}
+
+			if result {
+
+			}
 		}
 	}
 
