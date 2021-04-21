@@ -7,6 +7,7 @@ import (
 	"unicode"
 )
 
+// Const for representation
 const (
 	TokenLeftBrace        = "Left_Brace"
 	TokenRightBrace       = "Right_Brace"
@@ -29,6 +30,7 @@ const (
 	TokenChar             = "Char"
 )
 
+// check if next string is reserved identifier
 func hasKey(k string) bool {
 	reservedKeywords := map[string]string{
 		"int":    TokenInteger,
@@ -52,6 +54,7 @@ func main() {
 	fmt.Println(lexer(rawSource()))
 }
 
+// read raw source code
 func rawSource() string {
 	file := "./code/test.cht"
 
@@ -73,10 +76,12 @@ func lexer(src string) *[]token {
 		// Ignore comment for now.
 		switch string(src[i]) {
 
+		// update new line
 		case "\n":
 			line++
 			break
 
+			// ignore whitespaces
 		case " ":
 			whitespace++
 			for string(src[i+1]) == " " {
@@ -212,6 +217,7 @@ func lexer(src string) *[]token {
 		default:
 			if unicode.IsDigit(rune(src[i])) {
 				// tokenize digit here
+				digit(&i, src)
 			}
 
 			result, err := regexp.Match("[a-zA-Z_]", []byte(string(src[i])))
@@ -226,7 +232,20 @@ func lexer(src string) *[]token {
 		}
 	}
 
-	fmt.Println("Total whitespace ", whitespace)
-	fmt.Println("Total lines ", line)
 	return &tokens
+}
+
+func digit(i *int, src string) {
+	start := *i
+	end := *i
+
+	for unicode.IsDigit(rune(src[*i])) {
+		*i++
+	}
+
+	end = *i - 1
+
+	digit := src[start:end]
+
+	fmt.Println(digit)
 }
