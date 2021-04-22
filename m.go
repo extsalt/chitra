@@ -28,6 +28,7 @@ const (
 	TokenFloat            = "Float"
 	TokenString           = "String"
 	TokenChar             = "Char"
+	TokenDigit            = "Digit"
 )
 
 // check if next string is reserved identifier
@@ -216,8 +217,12 @@ func lexer(src string) *[]token {
 
 		default:
 			if unicode.IsDigit(rune(src[i])) {
-				// tokenize digit here
-				digit(&i, src)
+				d := digit(&i, src)
+				tokens = append(tokens, token{
+					literal:   d,
+					tokenType: TokenDigit,
+					line:      line,
+				})
 			}
 
 			result, err := regexp.Match("[a-zA-Z_]", []byte(string(src[i])))
@@ -235,7 +240,8 @@ func lexer(src string) *[]token {
 	return &tokens
 }
 
-func digit(i *int, src string) {
+// Capture digit from src
+func digit(i *int, src string) string {
 	start := *i
 	end := *i
 
@@ -243,9 +249,7 @@ func digit(i *int, src string) {
 		*i++
 	}
 
-	end = *i - 1
+	end = *i
 
-	digit := src[start:end]
-
-	fmt.Println(digit)
+	return src[start:end]
 }
