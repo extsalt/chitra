@@ -1,13 +1,16 @@
-somevar = 1234
+int main() {
+int va = 12;
 
-if (somevar > 1000) {
-
+if(va>10) {
+        as = 12;
+    }
 }
 
-let newvar = 1900
+float left = 12;
 
-somethingelse = 1999
+double right = 100;
 
-if (a < 10) {
+
+return 0;
 
 }

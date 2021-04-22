@@ -31,6 +31,8 @@ const (
 	TokenDigit            = "Digit"
 	TokenIdentifier       = "Identifier"
 	TokenIf               = "If"
+	TokenReturn           = "Return"
+	TokenFor              = "For"
 )
 
 // check if next string is reserved identifier
@@ -41,6 +43,8 @@ func hasKey(k string) bool {
 		"string": TokenString,
 		"char":   TokenChar,
 		"if":     TokenIf,
+		"return": TokenReturn,
+		"for":    TokenFor,
 	}
 
 	_, ok := reservedKeywords[k]
@@ -270,11 +274,22 @@ func digit(i *int, src string) string {
 	return src[start:end]
 }
 
+// Identify reserved keywords and identifiers
 func identifier(i *int, src string) string {
 	start := *i
-	for string(src[*i]) != " " {
+	for isAlphaNumeric(string(src[*i])) {
 		*i++
 	}
+	s := src[start:*i]
+	*i = *i - 1
+	return s
+}
 
-	return src[start:*i]
+// Check if given string is alphanumeric
+func isAlphaNumeric(s string) bool {
+	result, err := regexp.Match(`[a-zA-Z0-9_]`, []byte(s))
+	if err != nil {
+		panic("Failed to execute regex")
+	}
+	return result
 }
