@@ -29,6 +29,8 @@ const (
 	TokenString           = "String"
 	TokenChar             = "Char"
 	TokenDigit            = "Digit"
+	TokenIdentifier       = "Identifier"
+	TokenIf               = "If"
 )
 
 // check if next string is reserved identifier
@@ -38,6 +40,7 @@ func hasKey(k string) bool {
 		"float":  TokenFloat,
 		"string": TokenString,
 		"char":   TokenChar,
+		"if":     TokenIf,
 	}
 
 	_, ok := reservedKeywords[k]
@@ -52,7 +55,11 @@ type token struct {
 }
 
 func main() {
-	fmt.Println(lexer(rawSource()))
+	tokens := *lexer(rawSource())
+
+	for i := 0; i < len(tokens); i++ {
+		fmt.Println(tokens[i])
+	}
 }
 
 // read raw source code
@@ -76,12 +83,10 @@ func lexer(src string) *[]token {
 	for i := 0; i < len(src); i++ {
 		// Ignore comment for now.
 		switch string(src[i]) {
-
 		// update new line
 		case "\n":
 			line++
 			break
-
 			// ignore whitespaces
 		case " ":
 			whitespace++
@@ -232,7 +237,21 @@ func lexer(src string) *[]token {
 			}
 
 			if result {
+				ident := identifier(&i, src)
 
+				if hasKey(ident) {
+					tokens = append(tokens, token{
+						literal:   ident,
+						tokenType: "Reserved_Key",
+						line:      line,
+					})
+				} else {
+					tokens = append(tokens, token{
+						literal:   ident,
+						tokenType: TokenIdentifier,
+						line:      line,
+					})
+				}
 			}
 		}
 	}
@@ -244,12 +263,18 @@ func lexer(src string) *[]token {
 func digit(i *int, src string) string {
 	start := *i
 	end := *i
-
 	for unicode.IsDigit(rune(src[*i])) {
 		*i++
 	}
-
 	end = *i
-
 	return src[start:end]
+}
+
+func identifier(i *int, src string) string {
+	start := *i
+	for string(src[*i]) != " " {
+		*i++
+	}
+
+	return src[start:*i]
 }
