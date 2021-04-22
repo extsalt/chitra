@@ -3,6 +3,8 @@ int va = 12;
 
 if(va>10) {
         as = 12;
+    } else {
+        as = 199;
     }
 }
 

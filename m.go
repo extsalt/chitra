@@ -33,6 +33,8 @@ const (
 	TokenIf               = "If"
 	TokenReturn           = "Return"
 	TokenFor              = "For"
+	TokenDouble           = "Double"
+	TokenElse             = "Else"
 )
 
 // check if next string is reserved identifier
@@ -42,7 +44,9 @@ func hasKey(k string) bool {
 		"float":  TokenFloat,
 		"string": TokenString,
 		"char":   TokenChar,
+		"double": TokenDouble,
 		"if":     TokenIf,
+		"else":   TokenElse,
 		"return": TokenReturn,
 		"for":    TokenFor,
 	}
