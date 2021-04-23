@@ -62,3 +62,5 @@ INT
 - folled by + and -
 - followed by &&
 - followed by ||, which in this simplified dialect of C has the least precedence
+
+- https://en.cppreference.com/w/c/language/operator_precedence
