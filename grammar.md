@@ -56,9 +56,9 @@ INT
    ;
 
 
-parenthesized expressions are highest priority,
-followed by -> and . (dot)
-followed by * and /
-folled by + and -
-followed by &&
-followed by ||, which in this simplified dialect of C has the least precedence
+- parenthesized expressions are highest priority,
+- followed by -> and . (dot)
+- followed by * and /
+- folled by + and -
+- followed by &&
+- followed by ||, which in this simplified dialect of C has the least precedence
